@@ -51,7 +51,7 @@ public class Project_1 {
                     decryption.displayMostFrequentDiagrams();
                     break;
                 case '0':
-                    if (decryption.undoLastAssignment()) {
+                    if (decryption.undoLastAssignment(cipherKey)) {
 
                     } else {
                         System.out.println("No previous assignments found.");

@@ -23,6 +23,8 @@ public class Decryption {
     /**
      * Displays cipher and decryption from the input text.
      */
+     private static HashMap<Character, Character> tempHashMap = new HashMap<Character, Character>();
+    
     public void displayCipherAndDecryption(String path) {
         try  {
             File file = new File(path);
@@ -67,9 +69,13 @@ public class Decryption {
      * Update the cipher.
      */
     public boolean updateCipher(HashMap<Character, Character> cipherKey) {
+        tempHashMap.clear();
+        for (Map.Entry<Character, Character> c : cipherKey.entrySet()) {
+            tempHashMap.put(c.getKey(), c.getValue());
+        }
         if (cipherKey.isEmpty()) {
             return false;
-        }
+        }        
         Scanner reader;
         char key, val;
         while (true) {
@@ -124,8 +130,14 @@ public class Decryption {
      * Undo last assigment if assigments found (else return false).
      * @return bool
      */
-    public boolean undoLastAssignment() {
-        
-        return false;
+    public boolean undoLastAssignment(HashMap<Character, Character> cipherKey) {
+        if (tempHashMap.isEmpty()) {
+            return false;
+        }
+        cipherKey.clear();
+        for (Map.Entry<Character, Character> c : tempHashMap.entrySet()) {
+                cipherKey.put(c.getKey(), c.getValue());
+            }
+        return true;
     }
 }
