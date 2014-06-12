@@ -72,27 +72,39 @@ public class decryption {
     public static void displayCipherAndDecryption() {
         try  {
             BufferedReader br = new BufferedReader(new FileReader("output.txt"));
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+            while (line != null) {
+                System.out.println(line);
+                line = br.readLine();
+            }
+        } catch(IOException e) {
+            decryption();
+            displayCipherAndDecryption();
+        }
+        
+    }
+    
+    private static void decryption() {
+        HashMap<Character, Character> cipherKey = Project_1.cipherKey;
+        try  {
+            BufferedReader br = new BufferedReader(new FileReader("output.txt"));
             PrintWriter writer = new PrintWriter("cipher_decryption.txt", "UTF-8");
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
             writer.write("");
             while (line != null) {
-                writer.append(line + '\n');
-                writer.append(decryption(line));
+                writer.append(line + "\n");
+                String str = "";
+                for (int i = 0; i < str.length(); i++) {
+                    str += Character.toLowerCase(cipherKey.get(str.charAt(i)));
+                }
+                writer.append(str + "\n");
                 line = br.readLine();
             }
         } catch(IOException e) {
 
         }
-        
-    }
-    
-    private static String decryption(String str) {
-        String ret_str = "";
-        for (int i = 0; i < str.length(); i++) {
-            // ret_str += Character.toLowerCase(decrypt_this_char(str.charAt(i)));
-        }
-        return ret_str;
     }
     
     /**
@@ -125,7 +137,7 @@ public class decryption {
             val = Character.toLowerCase(reader.findInLine(".").charAt(0));
             updateCipherkeys(key, val);
         }
-        
+        decryption();
         return true;
     }
     
