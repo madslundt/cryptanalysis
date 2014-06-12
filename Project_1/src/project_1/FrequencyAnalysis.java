@@ -6,7 +6,10 @@ package project_1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,7 +43,7 @@ public class FrequencyAnalysis
         {
             return frequence;
         }
-        Pattern p = Pattern.compile("[A-Za-z]");
+        Pattern p = Pattern.compile("^[A-Za-z]+$");
 
         while (scanner.hasNext())
         {
@@ -91,7 +94,7 @@ public class FrequencyAnalysis
                 }
             }
         }
-
+        System.out.println(frequence);
         /*
          while (m.find())
          {
@@ -110,5 +113,39 @@ public class FrequencyAnalysis
          */
 
         return frequence;
+    }
+    
+    public HashMap<Character, Character> getCipherKeys(List<Character> alphabet, HashMap<String, Integer> freq) {
+        HashMap<Character, Character> cipherKeys = new HashMap<Character, Character>();
+        List<Character> a = new ArrayList<Character>(alphabet);
+        HashMap<String, Integer> freq_clone;
+        freq_clone = (HashMap) freq.clone();
+        
+        for (int i = 0; i < freq_clone.size(); i++) {
+            int max = 0;
+            char c = '!';
+            for (Map.Entry<String, Integer> f : freq_clone.entrySet()) {
+                // Only characters
+                //System.out.println(f.getKey());
+                if (f.getKey().length() == 1 && f.getValue() > max) {
+                    max = f.getValue();
+                    c = f.getKey().charAt(0);
+                    //System.out.println(c);
+                }
+            }
+            if (a.size() < 1 || max < 1) {
+                return cipherKeys;
+            }
+            if (c == '!' || !freq.containsKey("" + c)) {
+                System.out.println("An error occurred : " + c);
+                return cipherKeys;
+            }
+            cipherKeys.put(c, a.get(0));
+            a.remove(0);
+            freq_clone.put("" + c, 0);
+        }
+        
+        return cipherKeys;
+        
     }
 }

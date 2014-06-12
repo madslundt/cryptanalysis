@@ -1,7 +1,9 @@
 package project_1;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map.Entry;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -11,7 +13,8 @@ import java.util.Scanner;
 public class Project_1 {
     
     private static HashMap<Character, Character> cipherKey = new HashMap<Character, Character>();
-    private static HashMap<String, Integer> letterFrequencies = new HashMap<String, Integer>(); 
+    private static HashMap<String, Integer> letterFrequencies = new HashMap<String, Integer>();
+    private static List<Character> alphabet = new ArrayList<Character>(Arrays.asList('e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'c', 'u', 'm', 'w', 'f', 'g', 'y', 'p', 'b', 'v', 'k', 'j', 'q', 'x', 'z'));
 
     /**
      * @param args the command line arguments
@@ -19,6 +22,9 @@ public class Project_1 {
     public static void main(String[] args) {
         FrequencyAnalysis FA = new FrequencyAnalysis(args[0]);
         letterFrequencies = FA.Freq();
+        
+        cipherKey = FA.getCipherKeys(alphabet, letterFrequencies);
+        System.out.println(cipherKey.toString());
         
         Decryption decryption = new Decryption();
         Scanner reader;
