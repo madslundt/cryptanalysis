@@ -79,7 +79,7 @@ public class Decryption {
 
             System.out.print("Enter the key you want to change: ");
             reader = new Scanner(System.in);
-            key = Character.toLowerCase(reader.findInLine(".").charAt(0));
+            key = reader.findInLine(".").charAt(0);
             if (key == '!') {
                 break;
             }
@@ -90,6 +90,9 @@ public class Decryption {
             System.out.print("Enter the value for key " + key + ": ");
             reader = new Scanner(System.in);
             val = Character.toLowerCase(reader.findInLine(".").charAt(0));
+            if (val == '!') {
+                continue;
+            }
             updateCipherkeys(key, val, cipherKey);
         }
         decryption(cipherKey);
