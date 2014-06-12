@@ -16,7 +16,11 @@ public class Project_1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        FrequencyAnalysis FA = new FrequencyAnalysis();
+        
+        String path = FA.fileChooser();
+        
+        FA.Freq(path);
     }
     
 }
