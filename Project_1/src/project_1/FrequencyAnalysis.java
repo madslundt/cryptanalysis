@@ -6,12 +6,10 @@ package project_1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JFileChooser;
 
 /**
  *
@@ -19,8 +17,16 @@ import javax.swing.JFileChooser;
  */
 public class FrequencyAnalysis
 {
+    private String path;
+    public FrequencyAnalysis(String path) {
+        this.path = path;
+        File file = new File(path);
+        if (file.isDirectory()) {
+            this.path = file + "/input.txt";
+        }
+    }
 
-    public HashMap<String, Integer> Freq(String path)
+    public HashMap<String, Integer> Freq()
     {
         HashMap<String, Integer> frequence = new HashMap<>();
         String text = "";
@@ -45,7 +51,6 @@ public class FrequencyAnalysis
                 Matcher m = p.matcher(l1 + "");
                 if (m.find())
                 {
-                    System.out.println("Char: " + l1);
                     if (frequence.containsKey(l1))
                     {
                         frequence.put(l1, frequence.get(l1) + 1);
@@ -60,7 +65,6 @@ public class FrequencyAnalysis
                     m = p.matcher(l2 + "");
                     if (m.find())
                     {
-                        System.out.println("Char: " + l2);
                         if (frequence.containsKey(l2))
                         {
                             frequence.put(l2, frequence.get(l2) + 1);
@@ -76,7 +80,6 @@ public class FrequencyAnalysis
                     m = p.matcher(l3 + "");
                     if (m.find())
                     {
-                        System.out.println("Char: " + l3);
                         if (frequence.containsKey(l3))
                         {
                             frequence.put(l3, frequence.get(l3) + 1);
@@ -86,13 +89,8 @@ public class FrequencyAnalysis
                         }
                     }
                 }
-                
             }
-
-
         }
-        System.out.println(frequence.toString());
-
 
         /*
          while (m.find())
@@ -112,17 +110,5 @@ public class FrequencyAnalysis
          */
 
         return frequence;
-    }
-
-    public String fileChooser()
-    {
-        String path = "";
-        JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-        {
-            return fc.getSelectedFile().getPath();
-        }
-        return path;
     }
 }
