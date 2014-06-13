@@ -16,19 +16,20 @@ public class Project_1 {
     private static HashMap<Character, Character> cipherKey = new HashMap<Character, Character>();
     private static HashMap<String, Integer> letterFrequencies = new HashMap<String, Integer>();
     private static List<Character> alphabet = new ArrayList<Character>(Arrays.asList('e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'c', 'u', 'm', 'w', 'f', 'g', 'y', 'p', 'b', 'v', 'k', 'j', 'q', 'x', 'z'));
-
+    
+    
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         FrequencyAnalysis FA = new FrequencyAnalysis(args[0]);
         
-        
         letterFrequencies = FA.Frequency();
-        FA.BestFreqs(letterFrequencies, 5);
+        //FA.BestFreqs(letterFrequencies, 5);
+        
         
         cipherKey = FA.getCipherKeys(alphabet, letterFrequencies);
-        System.out.println(cipherKey.toString());
         
         Decryption decryption = new Decryption(args[0]);
         Scanner reader;
@@ -55,7 +56,7 @@ public class Project_1 {
                     }
                     break;
                 case '3':
-                    decryption.displayLetterFrequencies();
+                    FA.LetterFreqs(letterFrequencies);
                     break;
                 case '4':
                     decryption.displayMostFrequentDiagrams();
