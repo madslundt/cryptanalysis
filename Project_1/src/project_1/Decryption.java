@@ -23,14 +23,20 @@ public class Decryption {
     /**
      * Displays cipher and decryption from the input text.
      */
-     private static HashMap<Character, Character> tempHashMap = new HashMap<Character, Character>();
+    private static HashMap<Character, Character> tempHashMap = new HashMap<Character, Character>();
     
-    public void displayCipherAndDecryption(String path) {
+    private String path;
+    
+    public Decryption(String path) {
+        File file = new File(path);
+        if (file.isFile()) {
+            path = file.getParent();
+        }
+        this.path = path;
+    }
+    
+    public void displayCipherAndDecryption() {
         try  {
-            File file = new File(path);
-            if (file.isFile()) {
-                path = file.getParent();
-            }
             BufferedReader br = new BufferedReader(new FileReader(path + "/output.txt"));
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
@@ -46,8 +52,8 @@ public class Decryption {
     
     private void decryption(HashMap<Character, Character> cipherKey) {
         try  {
-            BufferedReader br = new BufferedReader(new FileReader("output.txt"));
-            PrintWriter writer = new PrintWriter("cipher_decryption.txt", "UTF-8");
+            BufferedReader br = new BufferedReader(new FileReader(path + "/output.txt"));
+            PrintWriter writer = new PrintWriter(path + "cipher_decryption.txt", "UTF-8");
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
             writer.write("");
