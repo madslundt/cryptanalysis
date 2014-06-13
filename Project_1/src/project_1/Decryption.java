@@ -126,14 +126,32 @@ public class Decryption {
      * Display most frequent diagrams
      */
     public void displayMostFrequentDiTrigrams(HashMap<String, Integer> letterFrequencies, int n) {
+        String[] s1 = new String[10];
+        int[] f1 = new int[10];
+        
         Set comb = letterFrequencies.keySet();
-        int count = 0;
+        
         for (Object o : comb)
         {
             String s = o.toString();
             if (s.length() == n) {
-                System.out.println(count++ + ": " + s);
+                for (int j = 0; j < f1.length; j++)
+                {
+                    if (letterFrequencies.get(s) > f1[j])
+                    {
+                        s1[j] = s;
+                        f1[j] = letterFrequencies.get(s);
+                        break;
+                    }
+                }
             }
+        }
+        int count = 0;
+        for (int j = 0; j < f1.length; j++) {
+            if (s1[j] == null) {
+                break;
+            }
+            System.out.println(count++ + ": " + s1[j] + " (" + f1[j] + ")");
         }
     }
     
