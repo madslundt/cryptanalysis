@@ -4,16 +4,11 @@
  */
 package project_1;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +17,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -107,7 +99,7 @@ public class FrequencyAnalysis
         {
             return frequence;
         }
-        writer.write("");
+        writer.print("");
         while (scanner.hasNext())
         {
             text = scanner.next().toUpperCase();
@@ -162,7 +154,9 @@ public class FrequencyAnalysis
                 }
             }
         }
-
+        writer.flush();
+        writer.close();
+        scanner.close();
         //System.out.println("Text length: "+counter);
         return frequence;
     }

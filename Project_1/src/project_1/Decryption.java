@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  *
@@ -35,39 +36,39 @@ public class Decryption {
         this.path = path;
     }
     
-    public void displayCipherAndDecryption() {
+    public void displayCipherAndDecryption(HashMap<Character, Character> cipherKey) {
         try  {
-            BufferedReader br = new BufferedReader(new FileReader(path + "/output.txt"));
-            StringBuilder sb = new StringBuilder();
+            decryption(cipherKey);
+            BufferedReader br = new BufferedReader(new FileReader(path + "/decryption.txt"));
             String line = br.readLine();
             while (line != null) {
-                System.out.println(line);
                 line = br.readLine();
             }
         } catch(IOException e) {
-            System.out.println("No file");
+            System.out.println("An error occurred (decryption error).");
         }
         
     }
     
     private void decryption(HashMap<Character, Character> cipherKey) {
         try  {
-            BufferedReader br = new BufferedReader(new FileReader(path + "/output.txt"));
-            PrintWriter writer = new PrintWriter(path + "cipher_decryption.txt", "UTF-8");
-            StringBuilder sb = new StringBuilder();
+            BufferedReader br = new BufferedReader(new FileReader(path + "/cleanedfile.txt"));
+            PrintWriter writer = new PrintWriter(path + "/decryption.txt", "UTF-8");
             String line = br.readLine();
-            writer.write("");
+            writer.print("");
             while (line != null) {
                 writer.append(line + "\n");
-                String str = "";
-                for (int i = 0; i < str.length(); i++) {
-                    str += Character.toLowerCase(cipherKey.get(str.charAt(i)));
+                for (int i = 0; i < line.length(); i++) {
+                    writer.append(Character.toLowerCase(cipherKey.get(line.charAt(i))));
                 }
-                writer.append(str + "\n");
+                writer.append("\n");
                 line = br.readLine();
             }
+            writer.flush();
+            writer.close();
+            br.close();
         } catch(IOException e) {
-
+            System.out.println("An error occurred.");
         }
     }
     
@@ -122,17 +123,18 @@ public class Decryption {
     }
     
     /**
-     * Display letter frequencies.
-     */
-    public void displayLetterFrequencies() {
-        
-    }
-    
-    /**
      * Display most frequent diagrams
      */
-    public void displayMostFrequentDiagrams() {
-        
+    public void displayMostFrequentDiTrigrams(HashMap<String, Integer> letterFrequencies, int n) {
+        Set comb = letterFrequencies.keySet();
+        int count = 0;
+        for (Object o : comb)
+        {
+            String s = o.toString();
+            if (s.length() == n) {
+                System.out.println(count++ + ": " + s);
+            }
+        }
     }
     
     /**
@@ -145,8 +147,9 @@ public class Decryption {
         }
         cipherKey.clear();
         for (Map.Entry<Character, Character> c : tempHashMap.entrySet()) {
-                cipherKey.put(c.getKey(), c.getValue());
-            }
+            cipherKey.put(c.getKey(), c.getValue());
+        }
+        decryption(cipherKey);
         return true;
     }
 }

@@ -39,14 +39,15 @@ public class Project_1 {
             System.out.println("\t1. Display cipher- and decryptiontext.");
             System.out.println("\t2. Update ciphertext.");
             System.out.println("\t3. Display letter frequencies");
-            System.out.println("\t4. Display most frequent diagrams and trigrams\n");
+            System.out.println("\t4. Display most frequent digrams");
+            System.out.println("\t5. Display most frequent trigrams\n");
             System.out.println("\t0. Undo previous assignment");
             System.out.println("\t!: Quit");
             System.out.print("Please choose one of the options[0-4]: ");
             option = Character.toLowerCase(reader.findInLine(".").charAt(0));
             switch (option) {
                 case '1':
-                    decryption.displayCipherAndDecryption();
+                    decryption.displayCipherAndDecryption(cipherKey);
                     break;
                 case '2':
                     if (decryption.updateCipher(cipherKey)) {
@@ -59,7 +60,10 @@ public class Project_1 {
                     FA.LetterFreqs(letterFrequencies);
                     break;
                 case '4':
-                    decryption.displayMostFrequentDiagrams();
+                    decryption.displayMostFrequentDiTrigrams(letterFrequencies, 2);
+                    break;
+                case '5':
+                    decryption.displayMostFrequentDiTrigrams(letterFrequencies, 3);
                     break;
                 case '0':
                     if (decryption.undoLastAssignment(cipherKey)) {
