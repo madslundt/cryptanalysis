@@ -29,8 +29,8 @@ public class Project_1 {
         
         cipherKey = FA.getCipherKeys(alphabet, letterFrequencies);
         System.out.println(cipherKey.toString());
-        /*
-        Decryption decryption = new Decryption();
+        
+        Decryption decryption = new Decryption(args[0]);
         Scanner reader;
         char option;
         while (true) {
@@ -45,7 +45,7 @@ public class Project_1 {
             option = Character.toLowerCase(reader.findInLine(".").charAt(0));
             switch (option) {
                 case '1':
-                    decryption.displayCipherAndDecryption(args[0]);
+                    decryption.displayCipherAndDecryption();
                     break;
                 case '2':
                     if (decryption.updateCipher(cipherKey)) {
@@ -73,7 +73,7 @@ public class Project_1 {
                     System.out.println("No option for that.");
             }
             System.out.println("\n\n");
-        }*/
+        }
     }
     
 }
