@@ -4,7 +4,8 @@ The first programming project is to build a tool for analysis of a simple substi
 
  1. Implement a tool that counts the frequencies of letters, digrams, and tri- grams in a given text file.
  2. Use this tool to generate your own data files for the frequencies of letters, digrams, and trigrams in British English. Remember to “cleanse” the text first by leaving only capital letters! You can use sample texts e.g. from Project Gutenberg (www.gutenberg.org). Note that there is a difference in statistics between British English and American English, so make sure you pick texts from British authors!
- 3.Build a tool that assists the user in manually decrypting a substitution ciphertext. The minimum requirements are the following:
+ 3. Build a tool that assists the user in manually decrypting a substitution ciphertext. The minimum requirements are the following:
+
 	- The tool displays the ciphertext (capital letters) and under each line the decryption so far (small letters).
 	- The user can ask the program to assign a certain plaintext letter to a given ciphertext letter, and the program will update the cipher- text/plaintext view accordingly.
 	- The user can take back an assignment.
