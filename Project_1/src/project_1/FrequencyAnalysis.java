@@ -27,7 +27,34 @@ public class FrequencyAnalysis
 
     private String path;
     private Integer counter;
-    private HashMap<Character, Double> theoreticalFrequencies = new HashMap<Character, Double>();
+    private HashMap<Character, Double> theoreticalFrequencies = new HashMap<Character, Double>(){{
+        put('A', 0.082);
+        put('B', 0.015);
+        put('C', 0.028);
+        put('D', 0.043);
+        put('E', 0.127);
+        put('F', 0.022);
+        put('G', 0.020);
+        put('H', 0.061);
+        put('I', 0.070);
+        put('J', 0.002);
+        put('K', 0.008);
+        put('L', 0.040);
+        put('M', 0.024);
+        put('N', 0.067);
+        put('O', 0.075);
+        put('P', 0.019);
+        put('Q', 0.001);
+        put('R', 0.060);
+        put('S', 0.063);
+        put('T', 0.091);
+        put('U', 0.028);
+        put('V', 0.010);
+        put('W', 0.023);
+        put('X', 0.001);
+        put('Y', 0.020);
+        put('Z', 0.001);
+    }};
     
 
     public FrequencyAnalysis(String path)
@@ -39,32 +66,7 @@ public class FrequencyAnalysis
             this.path = file + "/input.txt";
         }
         counter = 0;
-        theoreticalFrequencies.put('A', 0.082);
-        theoreticalFrequencies.put('B', 0.015);
-        theoreticalFrequencies.put('C', 0.028);
-        theoreticalFrequencies.put('D', 0.043);
-        theoreticalFrequencies.put('E', 0.127);
-        theoreticalFrequencies.put('F', 0.022);
-        theoreticalFrequencies.put('G', 0.020);
-        theoreticalFrequencies.put('H', 0.061);
-        theoreticalFrequencies.put('I', 0.070);
-        theoreticalFrequencies.put('J', 0.002);
-        theoreticalFrequencies.put('K', 0.008);
-        theoreticalFrequencies.put('L', 0.040);
-        theoreticalFrequencies.put('M', 0.024);
-        theoreticalFrequencies.put('N', 0.067);
-        theoreticalFrequencies.put('O', 0.075);
-        theoreticalFrequencies.put('P', 0.019);
-        theoreticalFrequencies.put('Q', 0.001);
-        theoreticalFrequencies.put('R', 0.060);
-        theoreticalFrequencies.put('S', 0.063);
-        theoreticalFrequencies.put('T', 0.091);
-        theoreticalFrequencies.put('U', 0.028);
-        theoreticalFrequencies.put('V', 0.010);
-        theoreticalFrequencies.put('W', 0.023);
-        theoreticalFrequencies.put('X', 0.001);
-        theoreticalFrequencies.put('Y', 0.020);
-        theoreticalFrequencies.put('Z', 0.001);
+        
     }
 
     public HashMap<String, Integer> Frequency()
