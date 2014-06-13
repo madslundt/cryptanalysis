@@ -17,137 +17,124 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 /**
  *
  * @author Mikkel
  */
-public class FrequencyAnalysis
-{
+public class FrequencyAnalysis {
 
     private String path;
     private Integer counter;
-    private HashMap<Character, Double> theoreticalFrequencies = new HashMap<Character, Double>(){{
-        put('A', 0.082);
-        put('B', 0.015);
-        put('C', 0.028);
-        put('D', 0.043);
-        put('E', 0.127);
-        put('F', 0.022);
-        put('G', 0.020);
-        put('H', 0.061);
-        put('I', 0.070);
-        put('J', 0.002);
-        put('K', 0.008);
-        put('L', 0.040);
-        put('M', 0.024);
-        put('N', 0.067);
-        put('O', 0.075);
-        put('P', 0.019);
-        put('Q', 0.001);
-        put('R', 0.060);
-        put('S', 0.063);
-        put('T', 0.091);
-        put('U', 0.028);
-        put('V', 0.010);
-        put('W', 0.023);
-        put('X', 0.001);
-        put('Y', 0.020);
-        put('Z', 0.001);
-    }};
-    
+    private HashMap<Character, Double> theoreticalFrequencies = new HashMap<Character, Double>() {
+        {
+            put('A', 0.082);
+            put('B', 0.015);
+            put('C', 0.028);
+            put('D', 0.043);
+            put('E', 0.127);
+            put('F', 0.022);
+            put('G', 0.020);
+            put('H', 0.061);
+            put('I', 0.070);
+            put('J', 0.002);
+            put('K', 0.008);
+            put('L', 0.040);
+            put('M', 0.024);
+            put('N', 0.067);
+            put('O', 0.075);
+            put('P', 0.019);
+            put('Q', 0.001);
+            put('R', 0.060);
+            put('S', 0.063);
+            put('T', 0.091);
+            put('U', 0.028);
+            put('V', 0.010);
+            put('W', 0.023);
+            put('X', 0.001);
+            put('Y', 0.020);
+            put('Z', 0.001);
+        }
+    };
 
-    public FrequencyAnalysis(String path)
-    {
+    /**
+     * Constructor
+     *
+     * @param path String
+     */
+    public FrequencyAnalysis(String path) {
         this.path = path;
         File file = new File(path);
-        if (file.isDirectory())
-        {
+        if (file.isDirectory()) {
             this.path = file + "/input.txt";
         }
         counter = 0;
-        
+
     }
 
-    public HashMap<String, Integer> Frequency()
-    {
+    /**
+     * Frequency
+     *
+     * @return HashMap<String, Integer>
+     */
+    public HashMap<String, Integer> Frequency() {
         String text;
         Scanner scanner = null;
         PrintWriter writer = null;
         HashMap<String, Integer> frequence = new HashMap<>();
         String l1, l2 = "", l3 = "";
-        try
-        {
+        try {
             scanner = new Scanner(new File(path));
             File file = new File(path);
-            if (file.isFile())
-            {
+            if (file.isFile()) {
                 path = file.getParent();
             }
 
-        } catch (FileNotFoundException ex)
-        {
+        } catch (FileNotFoundException ex) {
             return frequence;
         }
 
         //Pattern p = Pattern.compile("[A-Z]+");
-
         Pattern p = Pattern.compile("^[A-Za-z]+$");
-        try
-        {
+        try {
 
             writer = new PrintWriter(path + "/cleanedfile.txt", "UTF-8");
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             return frequence;
         }
         writer.print("");
-        while (scanner.hasNext())
-        {
+        while (scanner.hasNext()) {
             text = scanner.next().toUpperCase();
-            for (int i = 0; i < text.length(); i++)
-            {
+            for (int i = 0; i < text.length(); i++) {
                 Matcher m = p.matcher(text.charAt(i) + "");
-                if (m.find())
-                {
+                if (m.find()) {
                     writer.append(text.charAt(i) + "");
                     counter++;
                     l1 = text.charAt(i) + "";
-                    if (frequence.containsKey(l1))
-                    {
+                    if (frequence.containsKey(l1)) {
                         frequence.put(l1, frequence.get(l1) + 1);
-                    } else
-                    {
+                    } else {
                         frequence.put(l1, 1);
                     }
 
-                    if (i + 1 < text.length())
-                    {
+                    if (i + 1 < text.length()) {
                         l2 = l1 + text.charAt(i + 1) + "";
                         m = p.matcher(l2);
-                        if (m.find())
-                        {
-                            if (frequence.containsKey(l2))
-                            {
+                        if (m.find()) {
+                            if (frequence.containsKey(l2)) {
                                 frequence.put(l2, frequence.get(l2) + 1);
-                            } else
-                            {
+                            } else {
                                 frequence.put(l2, 1);
                             }
                         }
 
                     }
-                    if (i + 2 < text.length())
-                    {
+                    if (i + 2 < text.length()) {
                         l3 = l2 + text.charAt(i + 2) + "";
                         m = p.matcher(l3);
-                        if (m.find())
-                        {
-                            if (frequence.containsKey(l3))
-                            {
+                        if (m.find()) {
+                            if (frequence.containsKey(l3)) {
                                 frequence.put(l3, frequence.get(l3) + 1);
-                            } else
-                            {
+                            } else {
                                 frequence.put(l3, 1);
                             }
                         }
@@ -163,34 +150,36 @@ public class FrequencyAnalysis
         return frequence;
     }
 
-    public HashMap<Character, Character> getCipherKeys(List<Character> alphabet, HashMap<String, Integer> freq)
-    {
+    /**
+     * Calculates the cipher keys
+     *
+     * @param alphabet List<Character> with the whole alphabet (a-z) in order of
+     * most used
+     * @param freq HashMap<String, Integer> frequency
+     * @return HashMap<Character, Character>
+     */
+    public HashMap<Character, Character> getCipherKeys(List<Character> alphabet, HashMap<String, Integer> freq) {
         HashMap<Character, Character> cipherKeys = new HashMap<Character, Character>();
         List<Character> a = new ArrayList<Character>(alphabet);
         HashMap<String, Integer> freq_clone;
         freq_clone = (HashMap) freq.clone();
 
-        for (int i = 0; i < freq_clone.size(); i++)
-        {
+        for (int i = 0; i < freq_clone.size(); i++) {
             int max = 0;
             char c = '!';
-            for (Map.Entry<String, Integer> f : freq_clone.entrySet())
-            {
+            for (Map.Entry<String, Integer> f : freq_clone.entrySet()) {
                 // Only characters
                 //System.out.println(f.getKey());
-                if (f.getKey().length() == 1 && f.getValue() > max)
-                {
+                if (f.getKey().length() == 1 && f.getValue() > max) {
                     max = f.getValue();
                     c = f.getKey().charAt(0);
                     //System.out.println(c);
                 }
             }
-            if (a.size() < 1 || max < 1)
-            {
+            if (a.size() < 1 || max < 1) {
                 return cipherKeys;
             }
-            if (c == '!' || !freq.containsKey("" + c))
-            {
+            if (c == '!' || !freq.containsKey("" + c)) {
                 System.out.println("An error occurred : " + c);
                 return cipherKeys;
             }
@@ -202,113 +191,28 @@ public class FrequencyAnalysis
         return cipherKeys;
 
     }
-    
-    
-    public void LetterFreqs(HashMap<String, Integer> h)
-    {
+
+    /**
+     * Prints the letter frequencies
+     *
+     * @param h HashMap<String, Integer>
+     */
+    public void LetterFreqs(HashMap<String, Integer> h) {
         Set comb = h.keySet();
         System.out.println();
-        for (Object o : comb)
-        {
+        for (Object o : comb) {
             String s = o.toString();
-            if(s.length() == 1)
-            {
-                double dA = (double) h.get(s)/counter;
+            if (s.length() == 1) {
+                double dA = (double) h.get(s) / counter;
                 Character c = s.charAt(0);
                 System.out.print(s + " : ");
-                System.out.printf("%.3f",dA);
+                System.out.printf("%.3f", dA);
                 System.out.print(" >< ");
                 System.out.printf("%.3f\n", theoreticalFrequencies.get(c));
-            }
-            else
-            {
+            } else {
                 continue;
             }
-            
-            }
+
+        }
     }
-    
-    
-
-    public void BestFreqs(HashMap<String, Integer> h, int m)
-    {
-        String[] sB = new String[m];
-        String[] sC = new String[m];
-        int[] fB = new int[m];
-        int[] fC = new int[m];
-
-
-        Set comb = h.keySet();
-
-        for (Object o : comb)
-        {
-            String s = o.toString();
-            int l = s.length();
-            switch (l)
-            {
-                case 2:
-                    for (int j = 0; j < m; j++)
-                    {
-                        if (h.get(s) > fB[j])
-                        {
-                            sB[j] = s;
-                            fB[j] = h.get(s);
-                            break;
-                        }
-                    }
-                    break;
-                case 3:
-                    for (int k = 0; k < m; k++)
-                    {
-                        if (h.get(s) > fC[k])
-                        {
-                            sC[k] = s;
-                            fC[k] = h.get(s);
-                            break;
-                        }
-                    }
-                    break;
-            }
-        }
-        
-        for (int j = 0; j < m; j++)
-        {
-            double dB = (double) fB[j]/counter;
-            System.out.println(sB[j] + " : " + fB[j] + " : " + dB);
-        }
-        System.out.println();
-        for (int k = 0; k < m; k++)
-        {
-            double dC = (double) fC[k]/counter;
-            System.out.println(sC[k] + " : " + fC[k] + " : " + dC);
-        }
-
-
-    }
-    /*
-     private static File fileChooserSave()
-     {
-     // Make a new filechooser
-     JFileChooser fc = new JFileChooser();
-     fc.setDialogTitle("Specify a file to save");
-     // add a filter
-     FileFilter ft = new FileNameExtensionFilter("Text Files", "txt");
-     fc.addChoosableFileFilter(ft);
-     // setup a default name (the current time)
-     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-     Date date = new Date();
-     String file_name = dateFormat.format(date);
-     fc.setSelectedFile(new File(file_name + ".txt"));
-     // set directory to last directory opened
-     fc.setCurrentDirectory(directoryMarker);
-     // open the filechooser and if OK is selected select that file
-     if (fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION)
-     {
-     directoryMarker = fc.getCurrentDirectory();
-     return fc.getSelectedFile();
-     }
-
-     return null;
-     }
-     */
 }

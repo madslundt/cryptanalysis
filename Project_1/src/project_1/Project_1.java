@@ -1,4 +1,3 @@
-
 package project_1;
 
 import java.util.ArrayList;
@@ -12,25 +11,22 @@ import java.util.Scanner;
  * @author madslundt
  */
 public class Project_1 {
-    
+
     private static HashMap<Character, Character> cipherKey = new HashMap<Character, Character>();
     private static HashMap<String, Integer> letterFrequencies = new HashMap<String, Integer>();
     private static List<Character> alphabet = new ArrayList<Character>(Arrays.asList('e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'c', 'u', 'm', 'w', 'f', 'g', 'y', 'p', 'b', 'v', 'k', 'j', 'q', 'x', 'z'));
-    
-    
-    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         FrequencyAnalysis FA = new FrequencyAnalysis(args[0]);
-        
+
         letterFrequencies = FA.Frequency();
         //FA.BestFreqs(letterFrequencies, 5);
-        
-        
+
         cipherKey = FA.getCipherKeys(alphabet, letterFrequencies);
-        
+
         Decryption decryption = new Decryption(args[0]);
         Scanner reader;
         char option;
@@ -51,7 +47,7 @@ public class Project_1 {
                     break;
                 case '2':
                     if (decryption.updateCipher(cipherKey)) {
-                        
+
                     } else {
                         System.out.println("No cipher keys found");
                     }
@@ -80,6 +76,5 @@ public class Project_1 {
             System.out.println("\n\n");
         }
     }
-    
-}
 
+}
