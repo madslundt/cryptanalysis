@@ -20,14 +20,16 @@ public class Project_1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        // Init objects
         FrequencyAnalysis FA = new FrequencyAnalysis(args[0]);
+        Decryption decryption = new Decryption(args[0]);
 
+        // Runs letter frequency
         letterFrequencies = FA.Frequency();
-        //FA.BestFreqs(letterFrequencies, 5);
 
+        // Updates the cipherKeys with the text imported.
         cipherKey = FA.getCipherKeys(alphabet, letterFrequencies);
 
-        Decryption decryption = new Decryption(args[0]);
         Scanner reader;
         char option;
         while (true) {
@@ -73,7 +75,7 @@ public class Project_1 {
                 default:
                     System.out.println("No option for that.");
             }
-            System.out.println("\n\n");
+            System.out.println("\n");
         }
     }
 

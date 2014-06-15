@@ -15,15 +15,12 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-/**
- *
- * @author madslundt
- */
 public class Decryption {
 
-    private static HashMap<Character, Character> tempHashMap = new HashMap<Character, Character>();
+    // HashMap to save old content (for the undo)
+    private static HashMap<Character, Character> oldCipherKeys = new HashMap<Character, Character>();
 
-    private String path;
+    private String path; // Stores path
 
     /**
      * Constructor
@@ -59,9 +56,9 @@ public class Decryption {
             String line = br.readLine();
             writer.print("");
             while (line != null) {
-                writer.append(line + "\n");
+                writer.append(line + "\n"); // Writing text from file
                 for (int i = 0; i < line.length(); i++) {
-                    writer.append(Character.toLowerCase(cipherKey.get(line.charAt(i))));
+                    writer.append(Character.toLowerCase(cipherKey.get(line.charAt(i)))); // Decrypting each character for the line before 
                 }
                 writer.append("\n");
                 line = br.readLine();
@@ -70,7 +67,7 @@ public class Decryption {
             writer.close();
             br.close();
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("An error occurred in decryption.");
         }
     }
 
@@ -81,13 +78,16 @@ public class Decryption {
      * @return boolean false if an error occurres.
      */
     public boolean updateCipher(HashMap<Character, Character> cipherKey) {
-        tempHashMap.clear();
-        for (Map.Entry<Character, Character> c : cipherKey.entrySet()) {
-            tempHashMap.put(c.getKey(), c.getValue());
-        }
         if (cipherKey.isEmpty()) {
             return false;
         }
+        
+        // Makes sure to clear oldCipherKeys before putting new values into.
+        oldCipherKeys.clear();
+        for (Map.Entry<Character, Character> c : cipherKey.entrySet()) {
+            oldCipherKeys.put(c.getKey(), c.getValue());
+        }
+        
         Scanner reader;
         char key, val;
         while (true) {
@@ -126,8 +126,11 @@ public class Decryption {
      * @param cipherKey HashMap<Character, Character> to be changed
      */
     private void updateCipherkeys(char key, char val, HashMap<Character, Character> cipherKey) {
+        // Checking if there is a key assigned to the updated value.
         for (Map.Entry<Character, Character> c : cipherKey.entrySet()) {
             if (c.getValue() == val) {
+                // If there is a value assigned to a key, it will take the 
+                //value from the key to be changed and insert into this key.
                 cipherKey.put(c.getKey(), cipherKey.get(key));
                 break;
             }
@@ -139,14 +142,19 @@ public class Decryption {
      * Prints the 10 most used di- or trigrams.
      *
      * @param letterFrequencies HashMap<String, Integer>
-     * @param n int 2 if digrams and 3 if trigrams.
+     * @param n int - 2 if digrams and 3 if trigrams.
      */
     public void displayMostFrequentDiTrigrams(HashMap<String, Integer> letterFrequencies, int n) {
+        if (n != 2 && n != 3) {
+            throw new IllegalArgumentException("n has to be either 2 or 3");
+        }
+        
         String[] s1 = new String[10];
         int[] f1 = new int[10];
 
         Set comb = letterFrequencies.keySet();
-
+        
+        // Finds the n most used di or trigrams.
         for (Object o : comb) {
             String s = o.toString();
             if (s.length() == n) {
@@ -159,6 +167,7 @@ public class Decryption {
                 }
             }
         }
+        // Prints the di- or trigames in order (descending).
         int count = 0;
         for (int j = 0; j < f1.length; j++) {
             if (s1[j] == null) {
@@ -174,14 +183,16 @@ public class Decryption {
      * @return bool
      */
     public boolean undoLastAssignment(HashMap<Character, Character> cipherKey) {
-        if (tempHashMap.isEmpty()) {
+        if (oldCipherKeys.isEmpty()) {
             return false;
         }
+        
+        // Makes sure to clear the current cipherKeys when restoring to the old.
         cipherKey.clear();
-        for (Map.Entry<Character, Character> c : tempHashMap.entrySet()) {
+        for (Map.Entry<Character, Character> c : oldCipherKeys.entrySet()) {
             cipherKey.put(c.getKey(), c.getValue());
         }
-        decryption(cipherKey);
+        decryption(cipherKey); // Run decryption with the 'new' cipherKeys.
         return true;
     }
 }

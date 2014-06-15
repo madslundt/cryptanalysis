@@ -23,8 +23,9 @@ import java.util.regex.Pattern;
  */
 public class FrequencyAnalysis {
 
-    private String path;
+    private String path; // Stores path
     private Integer counter;
+    // The english alphabeat with theoretical values.
     private HashMap<Character, Double> theoreticalFrequencies = new HashMap<Character, Double>() {
         {
             put('A', 0.082);
@@ -72,7 +73,8 @@ public class FrequencyAnalysis {
     }
 
     /**
-     * Frequency
+     * Loops through the file with plaintext and finds letter frequency for
+     * 1 letter, 2-pair letters and 3 letters in a row
      *
      * @return HashMap<String, Integer>
      */
@@ -93,10 +95,8 @@ public class FrequencyAnalysis {
             return frequence;
         }
 
-        //Pattern p = Pattern.compile("[A-Z]+");
-        Pattern p = Pattern.compile("^[A-Za-z]+$");
+        Pattern p = Pattern.compile("^[A-Za-z]+$"); // Regex only allows A-Za-z
         try {
-
             writer = new PrintWriter(path + "/cleanedfile.txt", "UTF-8");
         } catch (IOException e) {
             return frequence;
@@ -146,7 +146,6 @@ public class FrequencyAnalysis {
         writer.flush();
         writer.close();
         scanner.close();
-        //System.out.println("Text length: "+counter);
         return frequence;
     }
 
@@ -160,7 +159,9 @@ public class FrequencyAnalysis {
      */
     public HashMap<Character, Character> getCipherKeys(List<Character> alphabet, HashMap<String, Integer> freq) {
         HashMap<Character, Character> cipherKeys = new HashMap<Character, Character>();
-        List<Character> a = new ArrayList<Character>(alphabet);
+        List<Character> a = new ArrayList<Character>(alphabet); // Clones the alphabeat into a new list
+        
+        // Clone the frequency HashMap into a new one. 
         HashMap<String, Integer> freq_clone;
         freq_clone = (HashMap) freq.clone();
 
@@ -168,12 +169,9 @@ public class FrequencyAnalysis {
             int max = 0;
             char c = '!';
             for (Map.Entry<String, Integer> f : freq_clone.entrySet()) {
-                // Only characters
-                //System.out.println(f.getKey());
                 if (f.getKey().length() == 1 && f.getValue() > max) {
                     max = f.getValue();
                     c = f.getKey().charAt(0);
-                    //System.out.println(c);
                 }
             }
             if (a.size() < 1 || max < 1) {
@@ -183,8 +181,10 @@ public class FrequencyAnalysis {
                 System.out.println("An error occurred : " + c);
                 return cipherKeys;
             }
+            // Insert the most the most used letter from the alphabeat 
+            // into the letter in the plaintext that is most used.
             cipherKeys.put(c, a.get(0));
-            a.remove(0);
+            a.remove(0); // Removes the letter, to mark it used and not to be used on new letter.
             freq_clone.put("" + c, 0);
         }
 
@@ -193,7 +193,7 @@ public class FrequencyAnalysis {
     }
 
     /**
-     * Prints the letter frequencies
+     * Prints the letter frequencies against the theoretical english alphabeat
      *
      * @param h HashMap<String, Integer>
      */
@@ -206,13 +206,10 @@ public class FrequencyAnalysis {
                 double dA = (double) h.get(s) / counter;
                 Character c = s.charAt(0);
                 System.out.print(s + " : ");
-                System.out.printf("%.3f", dA);
+                System.out.printf("%.3f", dA); // Prints value with 3 decimals.
                 System.out.print(" >< ");
                 System.out.printf("%.3f\n", theoreticalFrequencies.get(c));
-            } else {
-                continue;
             }
-
         }
     }
 }
