@@ -34,8 +34,8 @@ public class Project_1 {
         char option;
         while (true) {
             reader = new Scanner(System.in);
-            System.out.println("\t1. Display cipher- and decryptiontext.");
-            System.out.println("\t2. Update ciphertext.");
+            System.out.println("\t1. Display cipher- and decryption text.");
+            System.out.println("\t2. Update cipher keys.");
             System.out.println("\t3. Display letter frequencies");
             System.out.println("\t4. Display most frequent digrams");
             System.out.println("\t5. Display most frequent trigrams\n");
