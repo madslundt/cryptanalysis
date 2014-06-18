@@ -83,3 +83,14 @@ void saveRainbowtable(std::tr1::unordered_map<string, string> &start_points) {
     myfile.close();
 
 }
+
+void loadRainbowtable(std::tr1::unordered_map<string, string> &points) {
+    ifstream myfile(SAVE_FILE);
+    string start, end;
+    while (getline(myfile, start, ',')) {
+        getline(myfile, end);
+        points[start] = end;
+    }
+    myfile.close();
+}
+
