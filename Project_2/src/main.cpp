@@ -34,10 +34,6 @@ int main()
                     loadRainbowtable(start_points);
                     length = start_points.size();
                     cout << "Generated " << length << endl;
-                    for (auto it : start_points) {
-                        cout << it.first << " => " << it.second << endl;
-                    }
-
                 }
                 else{
                     break;
