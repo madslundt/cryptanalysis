@@ -6,10 +6,12 @@ CONFIG -= qt
 SOURCES += main.cpp \
     md5.cpp \
     attack.cpp \
-    Rainbowtables.cpp
+    Rainbowtables.cpp \
+    variables.cpp
 
 HEADERS += \
     md5.h \
     Rainbowtables.h \
-    attack.h
+    attack.h \
+    variables.h
 

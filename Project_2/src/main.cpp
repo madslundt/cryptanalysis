@@ -3,9 +3,18 @@
 #include <stdlib.h>
 #include <iostream>
 #include "Rainbowtables.h"
-#include "Attack.h"
+#include "attack.h"
+#include "variables.h"
 
 using namespace std;
+
+const std::string hex_digits    = "0123456789ABCDEF";
+const int BIT_SIZE              = 28;
+const unsigned int MAX          = 1000;
+const char* SAVE_FILE           = "rainbowtable.csv";
+const unsigned int MAX_HEX      = (int) pow(2.0, (double) BIT_SIZE);
+const std::string s             = "S123456";
+const std::string u             = "THISKEY";
 
 int main()
 {
@@ -40,8 +49,8 @@ int main()
                 for (auto it : start_points) {
                     cout << it.first << " => " << it.second << endl;
                 }
+                cout << findS() << endl;
                 return 0;
-
             case '!':
                 return 0;
             default:

@@ -7,14 +7,9 @@
 #include <iostream>
 #include <fstream>
 #include "md5.h"
+#include "variables.h"
 
 using namespace std;
-
-const string hex_digits = "0123456789ABCDEF";
-const int BIT_SIZE = 28;
-const unsigned int MAX = 1000;
-const char* SAVE_FILE = "rainbowtable.csv";
-const unsigned int MAX_HEX = (int) pow(2.0, (double) BIT_SIZE);
 
 string md5_redux(string str) {
     string md = md5(str);

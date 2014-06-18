@@ -1,12 +1,21 @@
 #include <string>
 #include "Rainbowtables.h"
+#include "variables.h"
 
 using namespace std;
 
-const string s          = "S123456";
-const string u          = "THISKEY";
+string reduceString(string str, int bits) {
+    unsigned int start;
+    start = str.length() - bits;
+    return str.substr(start, bits);
+
+}
 
 string carResponse() {
-    return md5_redux(s + u);
+    return reduceString(md5_redux(s + u), BIT_SIZE / 4);
+}
+
+string findS() {
+    return s; // hehehe
 }
 
