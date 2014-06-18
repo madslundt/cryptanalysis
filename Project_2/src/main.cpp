@@ -8,19 +8,22 @@
 
 using namespace std;
 
-const std::string hex_digits    = "0123456789ABCDEF";
+const unsigned int CHAINS       = (int) pow(2.0,18.0);
+const unsigned int CHAIN_LENGTH = (int) pow(2.0,10.0);
+const std::string hex_digits    = "0123456789abcdef";
 const int BIT_SIZE              = 28;
-const unsigned int MAX          = 1000;
+const unsigned int MAX          = 100000;
 const char* SAVE_FILE           = "rainbowtable.csv";
 const unsigned int MAX_HEX      = (int) pow(2.0, (double) BIT_SIZE);
-const std::string s             = "S123456";
+const std::string s             = "0x35d8234";
 const std::string u             = "THISKEY";
 
 int main()
 {
     while (true) {
         char c1;
-        unsigned int chains, chain_length, length;
+        string suc;
+        unsigned int length;
         std::tr1::unordered_map<string, string> start_points;
         std::tr1::unordered_map<string, string> end_points;
         cout << "\n1: Precomputation phase (Generate Rainbow table)" << endl;
@@ -35,10 +38,8 @@ int main()
                 char c2;
                 cout << "The precomputation phase will take a while. Confirm (y/n)?" << endl;
                 cin >> c2;
-                if(c2 == 'y'){
-                    chains = pow(2.0,18.0);
-                    chain_length = (int) pow(2.0,10.0);
-                    generateRainbowtables(chains, chain_length, start_points, end_points);
+                if(c2 == 'y') {
+                    generateRainbowtables(start_points, end_points);
                     saveRainbowtable(start_points);
                     length = start_points.size();
                     cout << "Generated " << length << endl;
@@ -46,10 +47,12 @@ int main()
                 break;
             case '2':
                 loadRainbowtable(start_points);
-                for (auto it : start_points) {
-                    cout << it.first << " => " << it.second << endl;
+                suc = findS(start_points);
+                if (suc != "") {
+                    cout << "Found key: " << suc << endl;
+                } else {
+                    cout << "Couldn't find the key" << endl;
                 }
-                cout << findS() << endl;
                 return 0;
             case '!':
                 return 0;

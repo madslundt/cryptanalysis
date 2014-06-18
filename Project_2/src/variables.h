@@ -1,9 +1,9 @@
 #ifndef VARIABLES_H
 #define VARIABLES_H
 #include <string>
-#include <stdlib.h>
-#include <math.h>
 
+extern const unsigned int CHAINS;
+extern const unsigned int CHAIN_LENGTH;
 extern const std::string hex_digits;
 extern const int BIT_SIZE;
 extern const unsigned int MAX;

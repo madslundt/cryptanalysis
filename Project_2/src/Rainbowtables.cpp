@@ -39,14 +39,13 @@ string f(string hex, int j) {
     return "0x" + stream.str();
 }
 
-void generateRainbowtables(unsigned int chains, unsigned int chain_length,
-                           std::tr1::unordered_map<string, string> &start_points,
+void generateRainbowtables(std::tr1::unordered_map<string, string> &start_points,
                            std::tr1::unordered_map<string, string> &end_points) {
     size_t i, j;
     unsigned int count;
     string start_point, point;
     count = 0;
-    for (i = 0; i < chains; ++i) {
+    for (i = 0; i < CHAINS; ++i) {
         start_point = randomHex();
         while (start_points.find(start_point) != start_points.end()) {
             cout << "OOOPS" << endl;
@@ -56,7 +55,7 @@ void generateRainbowtables(unsigned int chains, unsigned int chain_length,
             start_point = randomHex();
         }
         point = start_point;
-        for (j = 0; j < chain_length; ++j) {
+        for (j = 0; j < CHAIN_LENGTH; ++j) {
             point = f(point, j);
         }
 
@@ -65,7 +64,6 @@ void generateRainbowtables(unsigned int chains, unsigned int chain_length,
 
         if (i > 0 && i % 1000 == 0) {
             cout << i << " start points so far." << endl;
-            break;
         }
     }
 }
