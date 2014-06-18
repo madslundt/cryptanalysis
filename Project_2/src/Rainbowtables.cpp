@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <tr1/unordered_map>
+#include <stdlib.h>
 #include <math.h>
 #include <iostream>
 #include <fstream>

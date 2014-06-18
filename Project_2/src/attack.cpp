@@ -1,4 +1,5 @@
 #include <stdlib.h>     /* srand, rand */
+#include <stdlib.h>
 #include <math.h>
 #include <string>
 #include "Rainbowtables.h"

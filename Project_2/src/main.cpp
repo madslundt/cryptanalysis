@@ -1,5 +1,6 @@
 #include <sstream>
 #include <string>
+#include <stdlib.h>
 #include <iostream>
 #include "Rainbowtables.h"
 #include "Attack.h"
