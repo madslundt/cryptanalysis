@@ -78,9 +78,9 @@ void generateRainbowtables(unsigned int chains, unsigned int chain_length,
 void saveRainbowtable(std::tr1::unordered_map<string, string> &start_points) {
     ofstream myfile;
     myfile.open (SAVE_FILE);
-    myfile << "Key" << "," << "Value" << endl;
+    //myfile << "Key" << "," << "Value" << endl;
     for (auto it : start_points) {
-        myfile << it.first << "," << it.second;
+        myfile << it.first << "," << it.second << endl;
     }
     myfile.close();
 
