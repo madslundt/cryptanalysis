@@ -1,8 +1,6 @@
 #ifndef RAINBOWTABLES_H
 #define RAINBOWTABLES_H
 #include <string>
-#include <iostream>
-#include <stdlib.h>
 #include <tr1/unordered_map>
 
 void loadRainbowtable(std::tr1::unordered_map<std::string, std::string> &points);

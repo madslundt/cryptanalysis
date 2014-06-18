@@ -14,6 +14,7 @@ const string hex_digits = "0123456789ABCDEF";
 const int BIT_SIZE = 28;
 const unsigned int MAX = 1000;
 const char* SAVE_FILE = "rainbowtable.csv";
+const unsigned int MAX_HEX = (int) pow(2.0, (double) BIT_SIZE);
 
 string md5_redux(string str) {
     string md = md5(str);
@@ -39,7 +40,7 @@ string f(string hex, int j) {
     ss >> x;
 
     stringstream stream;
-    stream << std::hex << (x + j) % (int) pow(2.0, (double) BIT_SIZE);
+    stream << std::hex << (x + j) % MAX_HEX;
     return "0x" + stream.str();
 }
 

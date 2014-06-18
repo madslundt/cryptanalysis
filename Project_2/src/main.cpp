@@ -1,4 +1,4 @@
-#include <sstream>
+#include <math.h>
 #include <string>
 #include <stdlib.h>
 #include <iostream>
@@ -11,7 +11,7 @@ int main()
 {
     while (true) {
         char c1;
-        cout << "1: Precomputation phase (Generate Rainbow table)" << endl;
+        cout << "\n1: Precomputation phase (Generate Rainbow table)" << endl;
         cout << "2: Online phase" << endl;
         cout << "!: Exit program" << endl;
         cout << "Please enter a value: ";
@@ -29,17 +29,14 @@ int main()
                     std::tr1::unordered_map<string, string> start_points;
                     std::tr1::unordered_map<string, string> end_points;
                     chains = pow(2.0,18.0);
-                    chain_length = pow(2.0,10.0);
+                    chain_length = (int) pow(2.0,10.0);
                     generateRainbowtables(chains, chain_length, start_points, end_points);
                     saveRainbowtable(start_points);
                     loadRainbowtable(start_points);
                     length = start_points.size();
                     cout << "Generated " << length << endl;
                 }
-                else{
-                    break;
-                }
-
+                break;
             case '2':
                 return 0;
 
