@@ -22,7 +22,6 @@ int main()
 {
     while (true) {
         char c1;
-        string suc;
         unsigned int length;
         std::tr1::unordered_map<string, string> start_points;
         std::tr1::unordered_map<string, string> end_points;
