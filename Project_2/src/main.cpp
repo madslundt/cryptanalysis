@@ -2,7 +2,7 @@
 #include <string>
 #include <stdlib.h>
 #include <iostream>
-#include <map>
+#include <tr1/unordered_map>
 #include "Rainbowtables.h"
 #include "attack.h"
 #include "variables.h"
@@ -13,7 +13,7 @@ const unsigned int CHAINS       = (int) pow(2.0,18.0);
 const unsigned int CHAIN_LENGTH = (int) pow(2.0,10.0);
 const std::string hex_digits    = "0123456789abcdef";
 const int BIT_SIZE              = 28;
-const unsigned int MAX          = 100000;
+const unsigned int MAX          = 1000;
 const char* SAVE_FILE           = "rainbowtable.csv";
 const unsigned int MAX_HEX      = (int) pow(2.0, (double) BIT_SIZE);
 const std::string u             = "THISKEY";
@@ -24,9 +24,9 @@ int main()
         char c1;
         string suc;
         unsigned int length;
-        std::map<string, string> start_points;
-        std::map<string, string> end_points;
-        std::map<string, int> keys;
+        std::tr1::unordered_map<string, string> start_points;
+        std::tr1::unordered_map<string, string> end_points;
+        std::tr1::unordered_map<string, int> keys;
         cout << "\n1: Precomputation phase (Generate Rainbow table)" << endl;
         cout << "2: Online phase" << endl;
         cout << "!: Exit program" << endl;
@@ -48,7 +48,12 @@ int main()
                 break;
             case '2':
                 loadRainbowtable(start_points);
+                length = start_points.size();
+                cout << "No. of keys in rainbowtable:\t" << length << endl;
+                cout << "Find matching end points..." << endl;
                 keys = findEndPoints(start_points);
+                length = keys.size();
+                cout << "Found " << length << " matching end points. Finding S.." << endl;
                 findS(keys);
                 return 0;
             case '!':
