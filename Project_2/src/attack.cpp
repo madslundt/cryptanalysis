@@ -1,35 +1,20 @@
 #include <iostream>
 #include <string>
-#include <map>
+#include <tr1/unordered_map>
 #include "Rainbowtables.h"
 #include "variables.h"
 
 using namespace std;
 
-string lowestBits(string str, int bits) {
-    unsigned int start;
-    start = str.length() - bits;
-    return "0x" + str.substr(start, bits);
-
-}
-
-string generateS() {
-    return randomHex();
-}
-
-string carKeyAnswer(string str) {
-    return lowestBits(md5_redux(str + u), BIT_SIZE / 4);
-}
-
-std::map<string, int> findEndPoints(std::map<string, string> &points) {
+std::tr1::unordered_map<string, int> findEndPoints(std::tr1::unordered_map<string, string> &points) {
     size_t i, j;
     string r, s, carKey;
-    std::map<string, int> keys;
-    s = generateS();
-    carKey = carKeyAnswer(s);
+    std::tr1::unordered_map<string, int> keys;
+    s = randomHex();
+    carKey = md5_redux(s);
     for (i = CHAIN_LENGTH - 1; i > 0; --i) {
         for (j = i; j < CHAIN_LENGTH; ++j) {
-            r = f(carKeyAnswer(carKey), j);
+            r = f(md5_redux(carKey), j);
             carKey = r;
         }
         for (auto it : points) {
@@ -42,7 +27,7 @@ std::map<string, int> findEndPoints(std::map<string, string> &points) {
     return keys;
 }
 
-void findS(std::map<string, int> &keys) {
+void findS(std::tr1::unordered_map<string, int> &keys) {
     size_t i;
     string r;
     for (auto it : keys) {
