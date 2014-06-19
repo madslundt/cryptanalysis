@@ -1,10 +1,11 @@
 #ifndef ATTACK_H
 #define ATTACK_H
 #include <string>
-#include <tr1/unordered_map>
+#include <map>
 
-std::string reduceString(std::string str, int bits);
-std::string carResponse();
-std::string findS(std::tr1::unordered_map<std::string, std::string> &points);
+std::string lowestBits(std::string str, int bits);
+std::string carKeyAnswer();
+std::map<std::string, int> findEndPoints(std::map<std::string, std::string> &points);
+void findS(std::map<std::string, int> &keys);
 
 #endif // ATTACK_H

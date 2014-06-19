@@ -1,7 +1,7 @@
 #include <sstream>
 #include <string>
 #include <iostream>
-#include <tr1/unordered_map>
+#include <map>
 #include <stdlib.h>
 #include <math.h>
 #include <iostream>
@@ -39,8 +39,8 @@ string f(string hex, int j) {
     return "0x" + stream.str();
 }
 
-void generateRainbowtables(std::tr1::unordered_map<string, string> &start_points,
-                           std::tr1::unordered_map<string, string> &end_points) {
+void generateRainbowtables(std::map<string, string> &start_points,
+                           std::map<string, string> &end_points) {
     size_t i, j;
     unsigned int count;
     string start_point, point;
@@ -49,7 +49,7 @@ void generateRainbowtables(std::tr1::unordered_map<string, string> &start_points
         start_point = randomHex();
         while (start_points.find(start_point) != start_points.end()) {
             cout << "OOOPS" << endl;
-            if (count++ <= MAX) { // To secure no endless loop.
+            if (count++ >= MAX) { // To secure no endless loop.
                 return;
             }
             start_point = randomHex();
@@ -68,7 +68,7 @@ void generateRainbowtables(std::tr1::unordered_map<string, string> &start_points
     }
 }
 
-void saveRainbowtable(std::tr1::unordered_map<string, string> &start_points) {
+void saveRainbowtable(std::map<string, string> &start_points) {
     ofstream myfile;
     myfile.open (SAVE_FILE);
     //myfile << "Key" << "," << "Value" << endl;
@@ -79,7 +79,7 @@ void saveRainbowtable(std::tr1::unordered_map<string, string> &start_points) {
 
 }
 
-void loadRainbowtable(std::tr1::unordered_map<string, string> &points) {
+void loadRainbowtable(std::map<string, string> &points) {
     ifstream myfile(SAVE_FILE);
     string start, end;
     while (getline(myfile, start, ',')) {

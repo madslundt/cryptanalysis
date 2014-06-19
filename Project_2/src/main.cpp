@@ -2,6 +2,7 @@
 #include <string>
 #include <stdlib.h>
 #include <iostream>
+#include <map>
 #include "Rainbowtables.h"
 #include "attack.h"
 #include "variables.h"
@@ -15,7 +16,6 @@ const int BIT_SIZE              = 28;
 const unsigned int MAX          = 100000;
 const char* SAVE_FILE           = "rainbowtable.csv";
 const unsigned int MAX_HEX      = (int) pow(2.0, (double) BIT_SIZE);
-const std::string s             = "0x35d8234";
 const std::string u             = "THISKEY";
 
 int main()
@@ -24,8 +24,9 @@ int main()
         char c1;
         string suc;
         unsigned int length;
-        std::tr1::unordered_map<string, string> start_points;
-        std::tr1::unordered_map<string, string> end_points;
+        std::map<string, string> start_points;
+        std::map<string, string> end_points;
+        std::map<string, int> keys;
         cout << "\n1: Precomputation phase (Generate Rainbow table)" << endl;
         cout << "2: Online phase" << endl;
         cout << "!: Exit program" << endl;
@@ -47,12 +48,8 @@ int main()
                 break;
             case '2':
                 loadRainbowtable(start_points);
-                suc = findS(start_points);
-                if (suc != "") {
-                    cout << "Found key: " << suc << endl;
-                } else {
-                    cout << "Couldn't find the key" << endl;
-                }
+                keys = findEndPoints(start_points);
+                findS(keys);
                 return 0;
             case '!':
                 return 0;
