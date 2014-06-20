@@ -29,15 +29,17 @@ std::tr1::unordered_map<string, int> findEndPoints(std::tr1::unordered_map<strin
     return keys;
 }
 
-void findS(std::tr1::unordered_map<string, int> &keys) {
+std::tr1::unordered_map<string, string> findS(std::tr1::unordered_map<string, int> &keys) {
     size_t i;
     string r;
+    std::tr1::unordered_map<string, string> possibleKeys;
     for (auto it : keys) {
         r = it.first;
         for (i = 0; i < it.second; ++i) {
             r = f(r, i);
         }
-        cout << "For Start point: " << it.first << " and column " << it.second << " the key might be:\t" << r <<  endl;
+        possibleKeys[r] = it.first;
     }
+    return possibleKeys;
 }
 

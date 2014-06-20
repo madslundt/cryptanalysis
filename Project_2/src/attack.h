@@ -4,6 +4,6 @@
 #include <tr1/unordered_map>
 
 std::tr1::unordered_map<std::string, int> findEndPoints(std::tr1::unordered_map<std::string, std::string> &points);
-void findS(std::tr1::unordered_map<std::string, int> &keys);
+std::tr1::unordered_map<std::string, std::string>  findS(std::tr1::unordered_map<std::string, int> &keys);
 
 #endif // ATTACK_H
