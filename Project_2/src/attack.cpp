@@ -10,7 +10,7 @@ std::tr1::unordered_map<string, int> findEndPoints(std::tr1::unordered_map<strin
     size_t i, j;
     string r, s, carKey;
     std::tr1::unordered_map<string, int> keys;
-    s = randomHex();
+    s = "s123123";//randomHex();
     carKey = md5_redux(s);
     cout << "s\t=\t" << s << endl;
     cout << "carkey\t=\t" << carKey << endl;
@@ -21,12 +21,11 @@ std::tr1::unordered_map<string, int> findEndPoints(std::tr1::unordered_map<strin
         }
         for (auto it : points) {
             if (carKey == it.second) {
-                cout << "Key found, ";
+                cout << "Key found " << endl;
                 keys[it.first] = i;
             }
         }
     }
-    cout << endl;
     return keys;
 }
 
