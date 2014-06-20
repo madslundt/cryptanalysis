@@ -24,7 +24,6 @@ int main()
         char c1;
         unsigned int length;
         std::tr1::unordered_map<string, string> start_points;
-        std::tr1::unordered_map<string, string> end_points;
         std::tr1::unordered_map<string, int> keys;
         cout << "\n1: Precomputation phase (Generate Rainbow table)" << endl;
         cout << "2: Online phase" << endl;
@@ -39,7 +38,7 @@ int main()
                 cout << "The precomputation phase will take a while. Confirm (y/n)?" << endl;
                 cin >> c2;
                 if(c2 == 'y') {
-                    generateRainbowtables(start_points, end_points);
+                    generateRainbowtables(start_points);
                     saveRainbowtable(start_points);
                     length = start_points.size();
                     cout << "Generated " << length << endl;
