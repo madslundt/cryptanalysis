@@ -24,8 +24,7 @@ int main()
         char c1;
         unsigned int length;
         std::tr1::unordered_map<string, string> start_points;
-        std::tr1::unordered_map<string, int> keys;
-        std::tr1::unordered_map<string, string> possibleKeys;
+        string key;
         cout << "\n1: Precomputation phase (Generate Rainbow table)" << endl;
         cout << "2: Online phase" << endl;
         cout << "!: Exit program" << endl;
@@ -50,15 +49,20 @@ int main()
                 length = start_points.size();
                 cout << "No. of keys in rainbowtable:\t" << length << endl;
                 cout << "Find matching end points..." << endl;
-                keys = findEndPoints(start_points);
-                length = keys.size();
+                key = findS(start_points);
+                if (!key.empty()) {
+                    cout << "Key is: " << key << endl;
+                } else {
+                    cout << "No key found." << endl;
+                }
+                /*length = keys.size();
                 cout << "Found " << length << " matching end points. Finding S.." << endl;
                 possibleKeys = findS(keys);
                 length = possibleKeys.size();
                 cout << "Found " << length << " unique possible keys" << endl;
                 for (auto it : possibleKeys) {
                     cout << "For Start point: " << it.second << " the key might be:\t" << it.first <<  endl;
-                }
+                }*/
                 return 0;
             case '!':
                 return 0;
