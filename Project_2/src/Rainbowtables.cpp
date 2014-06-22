@@ -1,6 +1,7 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include <cstdlib>
 #include <tr1/unordered_map>
 #include <stdlib.h>
 #include <math.h>
@@ -28,11 +29,13 @@ string md5_redux(string str) {
 string randomHex() {
     size_t i;
     unsigned int length;
+    int r;
     string hex;
     hex = "0x";
     length = BIT_SIZE / 4;
     for (i = 0; i < length; ++i) {
-      hex += hex_digits[ ( rand() % 16 ) ];
+      r = rand() % 16;
+      hex += hex_digits[r];
     }
     return hex;
 }

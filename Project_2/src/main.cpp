@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <tr1/unordered_map>
+#include <ctime>
 #include "Rainbowtables.h"
 #include "attack.h"
 #include "variables.h"
@@ -21,6 +22,7 @@ const std::string u             = "THISKEY";
 int main()
 {
     while (true) {
+        srand (time (0));  // Needs to be done so the rand() not will give the same over and over again.
         char c1;
         unsigned int length;
         std::tr1::unordered_map<string, string> start_points;
