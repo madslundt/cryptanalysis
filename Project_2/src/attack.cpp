@@ -7,30 +7,40 @@
 
 using namespace std;
 
+/**
+ * @brief findS
+ * @param points All the start- and end points.
+ * @return string with the key (empty string = no key)
+ */
 string findS(std::tr1::unordered_map<string, string> &points) {
     size_t i, j;
-    string r, s, carKey;
+    string r, s, s2, carKey;
     vector<string> succ;
-    s = randomHex();
-    carKey = f(md5_redux(s), 0);
-    succ.insert(succ.begin(), carKey);
+    s = randomHex(); // Setting a random s to be found (unknown).
+    carKey = f(md5_redux(s), 0); // Running the function and md5 the s.
+    succ.insert(succ.begin(), carKey); // Insert into successors.
+
+    // Calculating the next successors.
     for (i = 0; i < CHAIN_LENGTH; ++i) {
         succ.insert(succ.end(), f(md5_redux(succ[i]), i+1));
     }
     cout << "s\t=\t" << s << endl;
+    cout << "Car key: " << carKey << endl;
 
+    // Going through all the start- and endpoints.
     for (auto it : points) {
-        if (std::find(succ.begin(), succ.end(), it.second) != succ.end())
-        {
-            // Element in vector.
+        // Checks if the endpoint is in one of the successors.
+        if (std::find(succ.begin(), succ.end(), it.second) != succ.end()) {
             cout << "Found something.\t" << it.first << " => " << it.second << endl;
-            s = it.first;
+
+            // Setting start point and running through the start point to see if carKey is in the chain.
+            s2 = it.first;
             for (i = 0; i < CHAIN_LENGTH; ++i) {
-                r = f(md5_redux(s), i);
+                r = f(md5_redux(s2), i);
                 if (r == carKey) {
-                    return s;
+                    return s2;
                 }
-                s = r;
+                s2 = r;
             }
         }
     }
