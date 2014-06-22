@@ -34,7 +34,7 @@ int main()
         cout << "Please enter a value: ";
         cin >> c1;
 
-
+        //the user switch case, between precomputation- and online phase
         switch(c1) {
             case '1':
                 char c2;
@@ -52,9 +52,11 @@ int main()
                 length = start_points.size();
                 cout << "No. of keys in rainbowtable:\t" << length << endl;
                 cout << "Find matching end points..." << endl;
+                //for loop trying the function on 10 different s keys
                 for(i = 0; i < 10; ++i){
                 cout << "TURN NUMBER: " << i << endl;
-                possible_keys = findS(start_points);
+                possible_keys = findS(start_points); //finding all the possible s values
+                //printing the s values found if not empty
                 if (!possible_keys.empty()) {
                     cout << "Printing possible s values " << endl;
                     for(std::vector<string>::const_iterator j = possible_keys.begin(); j != possible_keys.end(); ++j)
@@ -63,14 +65,6 @@ int main()
                     cout << "No key found." << endl;
                 }
                 }
-                /*length = keys.size();
-                cout << "Found " << length << " matching end points. Finding S.." << endl;
-                possibleKeys = findS(keys);
-                length = possibleKeys.size();
-                cout << "Found " << length << " unique possible keys" << endl;
-                for (auto it : possibleKeys) {
-                    cout << "For Start point: " << it.second << " the key might be:\t" << it.first <<  endl;
-                }*/
                 return 0;
             case '!':
                 return 0;

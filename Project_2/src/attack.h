@@ -5,6 +5,5 @@
 #include <vector>
 
 std::vector<std::string> findS(std::tr1::unordered_map<std::string, std::string> &points);
-//std::tr1::unordered_map<std::string, std::string>  findS(std::tr1::unordered_map<std::string, int> &keys);
 
 #endif // ATTACK_H
