@@ -1,7 +1,7 @@
 #ifndef RAINBOWTABLES_H
 #define RAINBOWTABLES_H
 #include <string>
-#include <tr1/unordered_map>
+#include <unordered_map>
 
 std::string md5_redux(std::string str);
 std::string randomHex();

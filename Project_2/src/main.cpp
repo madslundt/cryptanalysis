@@ -2,7 +2,7 @@
 #include <string>
 #include <stdlib.h>
 #include <iostream>
-#include <tr1/unordered_map>
+#include <unordered_map>
 #include <ctime>
 #include "Rainbowtables.h"
 #include "attack.h"
