@@ -4,6 +4,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <ctime>
+#include <vector>
 #include "Rainbowtables.h"
 #include "attack.h"
 #include "variables.h"
@@ -24,9 +25,9 @@ int main()
     while (true) {
         srand (time (0));  // Needs to be done so the rand() not will give the same over and over again.
         char c1;
-        unsigned int length;
+        unsigned int length, i, j;
         std::tr1::unordered_map<string, string> start_points;
-        string key;
+        vector<string> possible_keys;
         cout << "\n1: Precomputation phase (Generate Rainbow table)" << endl;
         cout << "2: Online phase" << endl;
         cout << "!: Exit program" << endl;
@@ -51,11 +52,16 @@ int main()
                 length = start_points.size();
                 cout << "No. of keys in rainbowtable:\t" << length << endl;
                 cout << "Find matching end points..." << endl;
-                key = findS(start_points);
-                if (!key.empty()) {
-                    cout << "Key is: " << key << endl;
+                for(i = 0; i < 10; ++i){
+                cout << "TURN NUMBER: " << i << endl;
+                possible_keys = findS(start_points);
+                if (!possible_keys.empty()) {
+                    cout << "Printing possible s values " << endl;
+                    for(std::vector<string>::const_iterator j = possible_keys.begin(); j != possible_keys.end(); ++j)
+                    cout << "A possible key is: " << *j << endl;
                 } else {
                     cout << "No key found." << endl;
+                }
                 }
                 /*length = keys.size();
                 cout << "Found " << length << " matching end points. Finding S.." << endl;

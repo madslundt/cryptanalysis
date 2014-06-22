@@ -12,42 +12,41 @@ using namespace std;
  * @param points All the start- and end points.
  * @return string with the key (empty string = no key)
  */
-string findS(std::tr1::unordered_map<string, string> &points) {
+vector<string> findS(std::tr1::unordered_map<string, string> &points) {
     size_t i, j;
     int k;
-    string r, r2, s, s2, possible_s, temp_s, carKey;
+    string r, s, possible_s, temp_s, carKey;
     vector<string> succ;
+    vector<string> possible_s_values;
     s = randomHex(); // Setting a random s to be found (unknown).
     carKey = md5_redux(s); // Running the function and md5 the s.
     cout << "s\t=\t" << s << endl;
     cout << "Car key: " << carKey << endl;
 
-    for(k = CHAIN_LENGTH; k > 0; k--){
-        if(k % 250 == 0){
-            cout << "At k value: " << k << endl;
-        }
-        r2 = f(carKey, k); //Initial value in chain
-        for(j = k + 1; j <= CHAIN_LENGTH; j++)
+    for(k = CHAIN_LENGTH; k > 0; --k){
+        r = f(carKey, k); //Initial value in chain
+        for(j = k + 1; j < CHAIN_LENGTH; ++j)
         {
-            r2 = f(md5_redux(r2), j); //calculating our possible successor
+            r = f(md5_redux(r), j); //calculating our possible successor
         }
-        succ.insert(succ.end(), r2); //inserting the successor into the vector of successors
+        succ.insert(succ.end(), r); //inserting the successor into the vector of successors
     }
     cout << "All successors found" << endl;
     for(auto it : points){
         if(std::find(succ.begin(), succ.end(), it.second) != succ.end()){
-            cout << "End point found " << it.first << endl;
+            //cout << "End point found " << it.first << endl;
             possible_s = it.first;
-            for(i = 1; i <= CHAIN_LENGTH; i++){
+            for(i = 0; i < CHAIN_LENGTH; ++i){
                 temp_s = md5_redux(possible_s);
                 if(temp_s == carKey){
-                    cout << "Possible s value: " << possible_s << endl;
+                    //cout << "Possible s value: " << possible_s << endl;
+                    possible_s_values.insert(possible_s_values.end(), possible_s);
                 }
                 possible_s = f(temp_s, i);
             }
         }
     }
-    return "";
+    return possible_s_values;
     /*
     succ.insert(succ.begin(), carKey); // Insert into successors.
 
