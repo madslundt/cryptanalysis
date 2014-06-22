@@ -40,7 +40,7 @@ int main()
                 char c2;
                 cout << "The precomputation phase will take a while. Confirm (y/n)?" << endl;
                 cin >> c2;
-                if(c2 == 'y') {
+                if (c2 == 'y') {
                     generateRainbowtables(start_points);
                     saveRainbowtable(start_points);
                     length = start_points.size();
@@ -52,18 +52,19 @@ int main()
                 length = start_points.size();
                 cout << "No. of keys in rainbowtable:\t" << length << endl;
                 cout << "Find matching end points..." << endl;
-                //for loop trying the function on 10 different s keys
-                for(i = 0; i < 10; ++i){
-                cout << "TURN NUMBER: " << i << endl;
-                possible_keys = findS(start_points); //finding all the possible s values
-                //printing the s values found if not empty
-                if (!possible_keys.empty()) {
-                    cout << "Printing possible s values " << endl;
-                    for(std::vector<string>::const_iterator j = possible_keys.begin(); j != possible_keys.end(); ++j)
-                    cout << "A possible key is: " << *j << endl;
-                } else {
-                    cout << "No key found." << endl;
-                }
+                //for loop trying to find s with 10 different s keys
+                for (i = 0; i < 10; ++i) {
+                    cout << "TURN NUMBER: " << i << endl;
+                    possible_keys = findS(start_points); //finding all the possible s values
+                    //printing the s values found if not empty
+                    if (!possible_keys.empty()) {
+                        cout << "Printing possible s values " << endl;
+                        for (std::vector<string>::const_iterator j = possible_keys.begin(); j != possible_keys.end(); ++j) {
+                        cout << "A possible key is: " << *j << endl;
+                        }
+                    } else {
+                        cout << "No key found." << endl;
+                    }
                 }
                 return 0;
             case '!':
