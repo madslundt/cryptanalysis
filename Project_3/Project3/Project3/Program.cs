@@ -123,7 +123,6 @@ namespace Project3
 		public static String decryption (int c, int[] k, int i)
 		{
 			int decrypted = c ^ k [i % KEY_LENGTH];
-			Console.WriteLine (Convert.ToInt32 (c) + " ^ " + k [i % KEY_LENGTH]);
 			/*
 			 * If the decrypted int, is outside of the unicode of the american symbols
 			 * it returns some random we know cannot be there.
