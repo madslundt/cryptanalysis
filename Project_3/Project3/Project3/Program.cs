@@ -5,7 +5,7 @@ namespace Project3
 	class MainClass
 	{
 		private static string start_date = "2009-06-22 00:00:00";
-		private static string end_date = "2009-06-22 23:59:59";
+		private static string end_date = "2009-06-28 23:59:59";
 		private static string[] check_words = {"NSA", "National Security Agency", "Obama", "USA", "Snowden"};
 		public static void Main (string[] args)
 		{
