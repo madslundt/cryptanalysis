@@ -12,16 +12,15 @@ using namespace std;
  * @param points All the start- and end points.
  * @return vector<string> - all the possible s values
  */
-vector<string> findS(std::tr1::unordered_map<string, string> &points) {
+vector<string> findS(std::tr1::unordered_map<string, string> &points, string s) {
     size_t i, j;
     int k;
-    string r, s, possible_s, temp_s, carKey;
+    string r, possible_s, temp_s, carKey;
     vector<string> succ;
     vector<string> possible_s_values;
-    s = randomHex(); // Setting a random s to be found (unknown).
     carKey = md5_redux(s); // Running the function and md5 the s.
-    cout << "s\t=\t" << s << endl;
-    cout << "Car key: " << carKey << endl;
+    //cout << "s\t=\t" << s << endl;
+    //cout << "Car key: " << carKey << endl;
 
     //loop calculating all the possible successors, starting with t, then t-1 all the way down to 0
     for (k = CHAIN_LENGTH; k > 0; --k) {
@@ -31,7 +30,7 @@ vector<string> findS(std::tr1::unordered_map<string, string> &points) {
         }
         succ.insert(succ.end(), r); //inserting the successor into the vector of successors
     }
-    cout << "All successors found" << endl;
+    cout << "\nAll successors found" << endl;
     //looping trough all the points to find them amongs the successors
     for (auto it : points) {
         //the individual check of the point in the successors
@@ -42,7 +41,9 @@ vector<string> findS(std::tr1::unordered_map<string, string> &points) {
                 temp_s = md5_redux(possible_s);
                 //if the md5_redux on s gives the carkey it is possible s key and it gets added to the vector of possible s values.
                 if (temp_s == carKey) {
-                    possible_s_values.insert(possible_s_values.end(), possible_s);
+                    if (std::find(possible_s_values.begin(), possible_s_values.end(), possible_s) == possible_s_values.end()) {
+                        possible_s_values.insert(possible_s_values.end(), possible_s);
+                    }
                 }
                 possible_s = f(temp_s, i); //after the md5_redux is done the fi function is used on the temp_s
             }
