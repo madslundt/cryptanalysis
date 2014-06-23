@@ -6,25 +6,28 @@ namespace Project3
 {
 	class MainClass
 	{
-		private static string start_date = "2009-06-22 00:00:00";
-		private static string end_date = "2009-06-28 23:59:59";
+		private static readonly string START_DATE = "2009-06-22 00:00:00";
+		private static readonly string END_DATE = "2009-06-28 23:59:59";
 		/*
 		 * Since we split ' ' every word have to be seperated
 		 * We can pick a lot of words as long as they are long enough and make sense
 		 * If they are long enough the chance for them being there as a coincidence is smaller
 		 */
-		private static string[] check_words =
+		private static readonly string[] CHECK_WORDS =
 		{"NSA", "National", "Security", "Agency", "Barack","Obama", "Europe", "United",
 		"States", "America", "U.S.", "USA", "Edward", "Snowden", "Chuck", "Hagel"};
-		private static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-		private static readonly int keyLength = 16;
-		private static readonly int wordsOccourence = 5;
+		private static readonly DateTime EPOCH = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+		private static readonly int KEY_LENGTH = 16;
+		private static readonly int WORDS_OCCURENCE = 1;
+
+
 		public static void Main (string[] args)
 		{
-			String ciphertext = loadFile(@"ciphertext_sheet3.txt");
+			byte[] ciphertext = loadFile(@"ciphertext_sheet3.txt");
+
 			String plainText; //the decrypted text
-			long start = getTimestamp(start_date);
-			long end = getTimestamp(end_date);
+			long start = getTimestamp(START_DATE);
+			long end = getTimestamp(END_DATE);
 			int[] key;
 			int textCounter; //used to know which position in the text we are at
 
@@ -39,12 +42,15 @@ namespace Project3
 				key = calculateKey (i);
 				textCounter = 0;
 				plainText = "";
+				String insert;
 				//for each loop decrypting the text with the calculated key
-				foreach (char c in ciphertext)
+				foreach (byte c in ciphertext)
 				{
-					String insert = decryption(c, key, textCounter);
-					if (insert.Equals("ÆØÅÆØÅÆØÅ")) //check comment in decryption to see why this is done.
-					{
+
+					try {
+						insert = decryption(Convert.ToInt32(c), key, textCounter);
+					} catch(Exception) {
+						//Console.WriteLine (e);
 						break;
 					}
 					plainText += insert;
@@ -53,7 +59,7 @@ namespace Project3
 				//Checking if the plaintext makes sense
 				if (check_text(plainText))
 				{
-					//File.WriteAllText(@"C:\Users\Public\TestFolder\WriteText.txt", plainText);
+					File.WriteAllText(@"plainttext_sheet3.txt", plainText);
 					Console.WriteLine(plainText);
 					break;
 				}
@@ -63,16 +69,17 @@ namespace Project3
 		public static bool check_text (String text)
 		{
 			int count = 0;
-			foreach (string w in check_words)
+			foreach (string w in CHECK_WORDS)
 			{
 				if (text.Contains (w))
 				{
 					//finding how many times the word appears in the text
 					count += (text.Length - text.Replace (w, "").Length) / w.Length;
+					//count++;
 				}
 			}
 			// if the words appears more than 5 times return true.
-			if (count > wordsOccourence)
+			if (count > WORDS_OCCURENCE)
 			{
 				return true;
 			}
@@ -82,14 +89,13 @@ namespace Project3
 		//function calculating the key we try to decrypt the ciphertext with. 
 		public static int[] calculateKey(long timeStamp)
 		{
-			int[] key = new int[keyLength];
+			int[] key = new int[KEY_LENGTH];
 			long s0 = updateFunction (timeStamp);
-			//cutting the 8 least significant bits
-			key [0] = bitCut (s0);
-			for (int i = 1; i < keyLength; i++) 
+
+			for (int i = 0; i < KEY_LENGTH; i++) 
 			{
-				s0 = updateFunction(key[i - 1]);
-				key[i] = bitCut(s0);
+				s0 = updateFunction (s0);
+				key[i] = bitCut(updateFunction(s0));
 			
 			}
 			return key;
@@ -99,26 +105,8 @@ namespace Project3
 		public static int bitCut(long input)
 		{
 			String bitString = Convert.ToString(input, 2);
-			char[] bits = bitString.ToCharArray ();
-			int length = bits.Length;
-			int ret = 0;
-			int powValue = 0;
-			//for loop calculating the value of the bitstring
-			for (int i = length - 1; i >= length - 8; i--)
-			{
-				if (i < 0)
-				{
-					break;
-				}
-				if (bits[i] == '1')
-				{
-					ret += (int) Math.Pow(2.0, powValue);
-				}
-				powValue++;
-			}
-
-			return ret;
-
+			bitString = bitString.Substring (bitString.Length - 8, 8);
+			return Convert.ToInt32 (bitString, 2);
 		}
 
 		//Function used to update the value in the key
@@ -132,24 +120,26 @@ namespace Project3
 		 * This is gives an integer in unicode
 		 * The unicode translated to a string
 		 */
-		public static String decryption (char c, int[] k, int i)
+		public static String decryption (int c, int[] k, int i)
 		{
-			int decrypted = Convert.ToInt32 (c) ^ k [i % keyLength];
+			int decrypted = c ^ k [i % KEY_LENGTH];
+			Console.WriteLine (Convert.ToInt32 (c) + " ^ " + k [i % KEY_LENGTH]);
 			/*
 			 * If the decrypted int, is outside of the unicode of the american symbols
 			 * it returns some random we know cannot be there.
 			 * This is to limit the run time. Might need change.
 			 */
-			if (decrypted > 150 && decrypted < 10)
+			if (decrypted > 150 || decrypted < 10)
 			{
-				return "ÆØÅÆØÅÆØÅ";
+				throw new Exception ("Outside unicode");
 			}
 			return Char.ConvertFromUtf32(decrypted);
 		}
 
-		public static String loadFile(String path) 
+		public static byte[] loadFile(String path) 
 		{
-			return System.IO.File.ReadAllText(path);
+			//return System.IO.File.ReadAllText(path);
+			return File.ReadAllBytes (path);
 
 		}
 
@@ -178,7 +168,7 @@ namespace Project3
 			//creating a DateTime with these values
 			DateTime value = new DateTime(year, month, day, hour, minute, second);
 			//subtracting 1970-1-1 00:00:00 and returning the elapsed time
-			TimeSpan elapsedTime =  value.Subtract(Epoch);
+			TimeSpan elapsedTime =  value.Subtract(EPOCH);
 			return (long) elapsedTime.TotalSeconds;
 
 		}
