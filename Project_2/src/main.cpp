@@ -94,7 +94,7 @@ int main()
                     }
                     else
                     {
-                        cout << *l <<"\t\t=> FAILURE" << endl;
+                        cout << *l <<"\t=>\tFAILURE" << endl;
                     }
                 }
                 u = old_u;

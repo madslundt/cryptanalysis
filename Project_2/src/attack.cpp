@@ -10,6 +10,7 @@ using namespace std;
 /**
  * @brief findS
  * @param points All the start- and end points.
+ * @param carKey Response from carkey (md5_redux(s))
  * @return vector<string> - all the possible s values
  */
 vector<string> findS(std::tr1::unordered_map<string, string> &points, string carKey) {
@@ -41,6 +42,7 @@ vector<string> findS(std::tr1::unordered_map<string, string> &points, string car
                     if (std::find(possible_s_values.begin(), possible_s_values.end(), possible_s) == possible_s_values.end()) {
                         possible_s_values.insert(possible_s_values.end(), possible_s);
                     }
+                    break;
                 }
                 possible_s = f(temp_s, i); //after the md5_redux is done the fi function is used on the temp_s
             }
