@@ -2,7 +2,7 @@
 #include <string>
 #include <stdlib.h>
 #include <iostream>
-#include <unordered_map>
+#include <tr1/unordered_map>
 #include <ctime>
 #include <vector>
 #include "Rainbowtables.h"
@@ -36,7 +36,6 @@ int main()
     string old_u;
     old_u = u;
     int i;
-    std::vector<string>::iterator it;
     std::vector<string>::const_iterator l, j;
     std::tr1::unordered_map<string, string> start_points;
     vector<string> possible_keys;
@@ -57,22 +56,13 @@ int main()
                 if (c2 == 'y') {
                     generateRainbowtables(start_points);
                     saveRainbowtable(start_points);
-                    //length = start_points.size();
-                    //cout << "Generated " << length << endl;
                 }
                 break;
             case '2':
-                for(i = 0 ; i < 100; i++){
-                cout << "TURN NUMBER: " << i << endl;
                 loadRainbowtable(start_points);
-                //length = start_points.size();
-                //cout << "No. of keys in rainbowtable:\t" << length << endl;
                 cout << "\nFind matching end points..." << endl;
                 s = randomHex(); // Setting a random s to be found (unknown).
                 cout << "(Privat key " << s << ")" << endl;
-                //for loop trying to find s with 10 different s keys
-                //for (i = 0; i < 10; ++i) {
-                    //cout << "TURN NUMBER: " << i << endl;
                     possible_keys = findS(start_points, s); //finding all the possible s values
                     //printing the s values found if not empty
                     if (!possible_keys.empty()) {
@@ -83,9 +73,7 @@ int main()
                     } else {
                         cout << "No key found." << endl;
                     }
-                //}
-                //return 0;
-                //break;
+                break;
             case '3':
                 if(possible_keys.empty())
                 {
@@ -94,20 +82,22 @@ int main()
                 }
                 u = "NEXTTRY"; //create a new u
                 r = md5_redux(s); //new response from the car key UNKNOWN!!!
-                cout << "Make check for new u" << endl;
+                cout << "Make check for new u\n" << endl;
                 for (l = possible_keys.begin(); l != possible_keys.end(); ++l) {
                     r2 = md5_redux(*l);
                     if(r == r2)
                     {
-                        cout << "Checks key: " << *l << "\t\t=> SUCCESS" << endl;
+                        cout << "+-------------------------------+" << endl;
+                        cout << "| " << *l << "\t=>\tSUCCESS |" << endl;
+                        cout << "+-------------------------------+" << endl;
                     }
                     else
                     {
-                        cout << "Checks key: " << *l <<"\t\t=> FAILURE" << endl;
+                        cout << *l <<"\t\t=> FAILURE" << endl;
                     }
                 }
-                u = old_u;}
-                //break;
+                u = old_u;
+                break;
             case '!':
                 return 0;
             default:
