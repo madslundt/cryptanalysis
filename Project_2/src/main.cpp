@@ -36,7 +36,6 @@ int main()
     string old_u;
     old_u = u;
     int i;
-    std::vector<string>::iterator it;
     std::vector<string>::const_iterator l, j;
     std::tr1::unordered_map<string, string> start_points;
     vector<string> possible_keys;
@@ -48,7 +47,7 @@ int main()
         cout << "Please enter a value: ";
         cin >> c1;
 
-        //the user switch case, between precomputation- and online phase
+        //the user switch case, between precomputation-, online phase and key check.
         switch(c1) {
             case '1':
                 char c2;
@@ -57,33 +56,28 @@ int main()
                 if (c2 == 'y') {
                     generateRainbowtables(start_points);
                     saveRainbowtable(start_points);
-                    //length = start_points.size();
-                    //cout << "Generated " << length << endl;
+                    cout << "Rainbowtable generated" << endl;
                 }
                 break;
             case '2':
                 int z;
                 z = 0;
                 for(i = 0 ; i < 100; i++){
-                cout << "TURN NUMBER: " << i << endl;
-                loadRainbowtable(start_points);
-                //length = start_points.size();
-                //cout << "No. of keys in rainbowtable:\t" << length << endl;
-                cout << "\nFind matching end points..." << endl;
+                cout << "_____________________________________________" << endl;
+                cout << "\nTURN NUMBER: " << i+1 << endl;
                 s = randomHex(); // Setting a random s to be found (unknown).
                 cout << "(Privat key " << s << ")" << endl;
-                //for loop trying to find s with 10 different s keys
-                //for (i = 0; i < 10; ++i) {
-                    //cout << "TURN NUMBER: " << i << endl;
+                loadRainbowtable(start_points);
+                cout << "\nFind matching end points..." << endl;
                     possible_keys = findS(start_points, s); //finding all the possible s values
                     //printing the s values found if not empty
                     if (!possible_keys.empty()) {
-                        cout << "Printing possible s values:" << endl;
+                        cout << "\nPrinting possible s values:" << endl;
                         for (j = possible_keys.begin(); j != possible_keys.end(); ++j) {
                         cout << ">>> A possible key is: " << *j << endl;
                         }
                     } else {
-                        cout << "No key found." << endl;
+                        cout << "\nNo key found." << endl;
                     }
                 //}
                 //return 0;
@@ -97,11 +91,15 @@ int main()
                 }
                 u = "NEXTTRY"; //create a new u
                 r = md5_redux(s); //new response from the car key UNKNOWN!!!
-                cout << "Make check for new u" << endl;
+                cout << "\nMake check for new u value:" << endl;
+                //Go through the keys found
                 for (l = possible_keys.begin(); l != possible_keys.end(); ++l) {
+                    //calculate the response using a found key and the new u
                     r2 = md5_redux(*l);
                     if(r == r2)
                     {
+                        //If the calculated response is the same as
+                        //the car key response then the key is the correct one
                         cout << "Checks key: " << *l << "\t\t=> SUCCESS" << endl;
                         ++z;
                     }
@@ -110,6 +108,7 @@ int main()
                         cout << "Checks key: " << *l <<"\t\t=> FAILURE" << endl;
                     }
                 }
+                //Set u back to the original u
                 u = old_u;
                 }
                 cout << "Total successes: " << z << endl;
