@@ -11,7 +11,7 @@ namespace Project3
 		const int KEY_LENGTH			= 16;
 		const int WORDS_OCCURENCE 		= 5;
 		const string CIPHERTEXT_FILE	= @"ciphertext_sheet3.txt";
-		const string PLAINTEXT_FILE		= @"plainttext_sheet3.txt";
+		const string PLAINTEXT_FILE		= @"plaintext_sheet3.txt";
 
 		/*
 		 * Since we split ' ' every word have to be seperated
