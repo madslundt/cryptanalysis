@@ -6,12 +6,12 @@ namespace Project3
 {
 	class MainClass
 	{
-		const string START_DATE 	= "2009-06-22 00:00:00";
-		const string END_DATE		= "2009-06-28 23:59:59";
-		const int KEY_LENGTH		= 16;
-		const int WORDS_OCCURENCE 	= 5;
-		const string CIPHERTEXT		= @"ciphertext_sheet3.txt";
-		const string PLAINTEXT		= @"plainttext_sheet3.txt";
+		const string START_DATE 		= "2009-06-22 00:00:00";
+		const string END_DATE			= "2009-06-28 23:59:59";
+		const int KEY_LENGTH			= 16;
+		const int WORDS_OCCURENCE 		= 5;
+		const string CIPHERTEXT_FILE	= @"ciphertext_sheet3.txt";
+		const string PLAINTEXT_FILE		= @"plainttext_sheet3.txt";
 
 		/*
 		 * Since we split ' ' every word have to be seperated
@@ -24,7 +24,7 @@ namespace Project3
 
 		public static void Main (string[] args)
 		{
-			byte[] ciphertext = loadFile(CIPHERTEXT);
+			byte[] ciphertext = loadFile(CIPHERTEXT_FILE);
 
 			String plainText; //the decrypted text
 			long start = getTimestamp(START_DATE);
@@ -37,7 +37,7 @@ namespace Project3
 			{
 				if ((i - start) % 1000 == 0)
 				{
-				Console.WriteLine("At key " + (i - start));
+					Console.WriteLine("At key " + (i - start));
 				}
 
 				key = calculateKey (i);
@@ -62,7 +62,7 @@ namespace Project3
 				//Check if the plaintext makes sense
 				if (check_text(plainText))
 				{
-					File.WriteAllText(PLAINTEXT, plainText);
+					File.WriteAllText(PLAINTEXT_FILE, plainText);
 					Console.WriteLine(plainText);
 					break;
 				}
@@ -150,7 +150,7 @@ namespace Project3
 			 */
 			if (decrypted > 150 || decrypted < 10)
 			{
-				throw new Exception ("Outside unicode");
+				throw new Exception ("Outside A-z ascii");
 			}
 			return Char.ConvertFromUtf32(decrypted);
 		}
