@@ -31,7 +31,7 @@ namespace Project3
 			int[] key;
 			int textCounter; //used to know which position in the text we are at
 
-			// Running through all the dates
+			// Running through all the dates whichs shold be a part of the key calculation
 			for (long i = start; i < end; i++) 
 			{
 				if ((i - start) % 1000 == 0)
@@ -65,7 +65,7 @@ namespace Project3
 				}
 			}
 		}
-
+		// Function checking the text if it contains possible known words.
 		public static bool check_text (String text)
 		{
 			int count = 0;
