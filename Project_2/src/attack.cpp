@@ -12,15 +12,12 @@ using namespace std;
  * @param points All the start- and end points.
  * @return vector<string> - all the possible s values
  */
-vector<string> findS(std::tr1::unordered_map<string, string> &points, string s) {
+vector<string> findS(std::tr1::unordered_map<string, string> &points, string carKey) {
     size_t i, j;
     int k;
-    string r, possible_s, temp_s, carKey;
+    string r, possible_s, temp_s;
     vector<string> succ;
     vector<string> possible_s_values;
-    carKey = md5_redux(s); // Running the function and md5 the s.
-    //cout << "s\t=\t" << s << endl;
-    //cout << "Car key: " << carKey << endl;
 
     //loop calculating all the possible successors, starting with t, then t-1 all the way down to 0
     for (k = CHAIN_LENGTH; k > 0; --k) {

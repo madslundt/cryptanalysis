@@ -63,7 +63,7 @@ int main()
                 cout << "\nFind matching end points..." << endl;
                 s = randomHex(); // 0x29a684c // Setting a random s to be found (unknown).
                 cout << "(Privat key " << s << ")" << endl;
-                    possible_keys = findS(start_points, s); //finding all the possible s values
+                    possible_keys = findS(start_points, md5_redux(s)); //finding all the possible s values
                     //printing the s values found if not empty
                     if (!possible_keys.empty()) {
                         cout << "Printing possible s values:" << endl;
