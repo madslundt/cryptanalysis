@@ -93,7 +93,6 @@ int main()
                 r = md5_redux(s); //new response from the car key UNKNOWN!!!
                 cout << "\nMake check for new u value:" << endl;
                 //Go through the keys found
-                cout << "Make check for new u\n" << endl;
                 for (l = possible_keys.begin(); l != possible_keys.end(); ++l) {
                     //calculate the response using a found key and the new u
                     r2 = md5_redux(*l);
@@ -112,8 +111,8 @@ int main()
                     }
                 }
                 //Set u back to the original u
-                cout << "Keys found: " << z << endl;
                 u = old_u;}
+                cout << "Keys found: " << z << endl;
                 break;
             case '!':
                 return 0;
