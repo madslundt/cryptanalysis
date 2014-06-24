@@ -61,7 +61,7 @@ int main()
             case '2':
                 loadRainbowtable(start_points);
                 cout << "\nFind matching end points..." << endl;
-                s = randomHex(); // Setting a random s to be found (unknown).
+                s = randomHex(); // 0x29a684c // Setting a random s to be found (unknown).
                 cout << "(Privat key " << s << ")" << endl;
                     possible_keys = findS(start_points, s); //finding all the possible s values
                     //printing the s values found if not empty
